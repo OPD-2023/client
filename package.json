@@ -1,0 +1,27 @@
+{
+  "name": "opd-2023.client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OPD-2023/client.git"
+  },
+  "keywords": [
+    "webpack",
+    "react",
+    "typescript",
+    "stylus",
+    "redux-toolkit",
+    "redux-saga"
+  ],
+  "author": "StombieIT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OPD-2023/client/issues"
+  },
+  "homepage": "https://github.com/OPD-2023/client#readme"
+}
