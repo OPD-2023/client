@@ -2,13 +2,26 @@ const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
-module.exports = function(env) {
+const babelRule = (test, ...additionalPresets) => ({
+    test,
+    exclude: /node_modules/,
+    use: [
+        {
+            loader: "babel-loader",
+            options: {
+                presets: ["@babel/preset-env", ...additionalPresets]
+            }
+        }
+    ]
+})
+
+module.exports = env => {
     const isDevelopment = env.NODE_ENV === "dev"
 
     return {
         mode: isDevelopment ? "development" : "production",
         entry: {
-            index: "./src/index.js"
+            index: ["@babel/polyfill", "./src/index.ts"]
         },
         output: {
             filename: "[name]__[contenthash:8].bundle.js",
@@ -23,5 +36,10 @@ module.exports = function(env) {
             }),
             new CleanWebpackPlugin()
         ],
+        module: {
+            rules: [
+                babelRule(/\.ts$/, "@babel/preset-typescript")
+            ]
+        }
     }
 }
