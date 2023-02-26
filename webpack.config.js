@@ -45,7 +45,12 @@ const styleRule = (test, useCallback) => {
 module.exports = {
     mode: "development",
     resolve: {
-        extensions: [".js", ".ts", ".jsx", ".tsx"]
+        extensions: [".js", ".ts", ".jsx", ".tsx"],
+        alias: {
+            "@components": "./src/components",
+            "@models": "./src/models",
+            "@business-logic": "./src/business-logic"
+        }
     },
     entry: {
         index:  ["@babel/polyfill", "./src/index.tsx"]
