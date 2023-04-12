@@ -47,9 +47,9 @@ module.exports = {
     resolve: {
         extensions: [".js", ".ts", ".jsx", ".tsx"],
         alias: {
-            "@components": "./src/components",
-            "@models": "./src/models",
-            "@business-logic": "./src/business-logic"
+            "@components": "./components",
+            "@models": "./models",
+            "@business-logic": "./business-logic"
         }
     },
     entry: {
@@ -88,5 +88,6 @@ module.exports = {
     devServer: {
         port: 1337,
         hot: true
-    }
+    },
+    performance: false
 }
