@@ -19,12 +19,12 @@ export default class FeedbackStore implements Feedback {
             message: observable
         })
 
-        this.replaceWhenLocalStorageDataExists()
+        this.importDataFromLocalStorage()
 
-        autorun(() => localStorage.setItem(LocalStorageKey.FEEDBACK, JSON.stringify(this)))
+        autorun(this.exportDataToLocalStorage.bind(this))
     }
 
-    private replaceWhenLocalStorageDataExists(): void {
+    private importDataFromLocalStorage(): void {
         const stringifiedLocalStorageData: string | null = localStorage.getItem(LocalStorageKey.FEEDBACK)
 
         if (stringifiedLocalStorageData) {
@@ -34,5 +34,9 @@ export default class FeedbackStore implements Feedback {
             this.email = localStorageData.email
             this.message = localStorageData.message
         }
+    }
+
+    private exportDataToLocalStorage(): void {
+        localStorage.setItem(LocalStorageKey.FEEDBACK, JSON.stringify(this))
     }
 }
