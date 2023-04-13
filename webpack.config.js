@@ -46,12 +46,16 @@ module.exports = {
     mode: "development",
     resolve: {
         extensions: [".js", ".ts", ".jsx", ".tsx"],
+        /**
+         *
+         * Пути обязательно должны быть абсолютными
+         */
         alias: {
-            "@components": "./components",
-            "@models": "./models",
-            "@business-logic": "./business-logic",
-            "@api": "./api",
-            "@services": "./services",
+            "@components": path.resolve(__dirname, "src", "components"),
+            "@models": path.resolve(__dirname, "src", "models"),
+            "@business-logic": path.resolve(__dirname, "src", "business-logic"),
+            "@api": path.resolve(__dirname, "src", "api"),
+            "@services": path.resolve(__dirname, "src", "services"),
             "@app-config": path.resolve(__dirname, "app.config.json")
         }
     },
