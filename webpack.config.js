@@ -49,7 +49,10 @@ module.exports = {
         alias: {
             "@components": "./components",
             "@models": "./models",
-            "@business-logic": "./business-logic"
+            "@business-logic": "./business-logic",
+            "@api": "./api",
+            "@services": "./services",
+            "@app-config": path.resolve(__dirname, "app.config.json")
         }
     },
     entry: {
