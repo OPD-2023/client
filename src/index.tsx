@@ -3,6 +3,7 @@ import { configure } from "mobx"
 
 import RootStoreProvider from "@services/components/RootStoreProvider"
 import App from "@components/App/App"
+import "./index.css"
 
 /**
  *
