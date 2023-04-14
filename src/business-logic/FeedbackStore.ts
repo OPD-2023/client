@@ -21,7 +21,7 @@ export default class FeedbackStore implements Feedback {
 
         this.importDataFromLocalStorage()
 
-        autorun(this.exportDataToLocalStorage.bind(this))
+        autorun(this.exportDataToLocalStorage)
     }
 
     private importDataFromLocalStorage(): void {
@@ -36,7 +36,7 @@ export default class FeedbackStore implements Feedback {
         }
     }
 
-    private exportDataToLocalStorage(): void {
+    private exportDataToLocalStorage = (): void => {
         localStorage.setItem(LocalStorageKey.FEEDBACK, JSON.stringify(this))
     }
 }

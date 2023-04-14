@@ -74,7 +74,8 @@ module.exports = {
             },
         }),
         new ProvidePlugin({
-            React: "react"
+            React: "react",
+            _: "lodash"
         }),
         new CleanWebpackPlugin()
     ],
