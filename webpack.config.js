@@ -86,7 +86,18 @@ module.exports = {
             babelRule(/\.ts$/, "@babel/preset-typescript"),
             babelRule(/\.tsx$/, "@babel/preset-react", "@babel/preset-typescript"),
             styleRule(/\.css$/),
-            styleRule(/\.styl$/, use => [...use, "stylus-loader"]),
+            styleRule(/\.styl$/, use => [
+                ...use,
+                {
+                    loader: "stylus-loader",
+                    options: {
+                        stylusOptions: {
+                            /** Аналогично: пути должны быть абсолютными */
+                            paths: [path.resolve(__dirname, "src", "styles")]
+                        }
+                    }
+                }
+            ]),
             {
                 test: /\.(png|jpg|jpeg|svg)$/,
                 use: "file-loader"
