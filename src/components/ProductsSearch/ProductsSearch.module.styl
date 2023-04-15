@@ -1,0 +1,90 @@
+@import "variables.styl"
+
+search-color(c)
+  alpha(c, .65)
+
+.wrapper {
+  display: flex
+  position: relative
+
+  background-color: c-gray
+  padding: sz-1x
+
+  .field {
+    line-height: 47px
+    flex: 100%
+    background-color: c-light-gray
+    color: c-dark-gray
+    font-size: sz-f-medium
+    padding: 0 sz-2x
+  }
+
+  .button {
+    margin-left: sz-2x
+    font-size: sz-f-medium
+    color: c-white
+    background-color: c-main
+    text-transform: uppercase
+    font-weight: 600
+    border-radius: sz-1x
+    padding: 0 sz-6x
+  }
+
+  .dropdown {
+    position: absolute
+    top: 100%
+    left: 0
+
+    width: 100%
+
+    border-bottom-left-radius: sz-1x
+    border-bottom-right-radius: sz-1x
+    overflow: hidden
+
+    &.__loading {
+      .item {
+        opacity: .4
+      }
+    }
+
+    &:not(.__loading) {
+      .item {
+        cursor: pointer
+
+        &:hover {
+          fill: search-color(c-main)
+          color: c-main
+
+          opacity: 1
+
+          border-left: 2px solid c-main
+        }
+      }
+    }
+  }
+
+  .item {
+    display: flex
+    align-items: center
+
+    border-left: 2px solid transparent
+
+    padding: sz-2x
+
+    background-color: c-light-gray
+    fill: alpha(c-dark-gray, .3)
+    color: c-dark-gray
+
+    opacity: .8
+
+    transition: fill time-1x, color time-1x, opacity time-2x
+  }
+
+  .payload {
+    display: inline-block
+    margin-left: sz-2x
+    font-size sz-f-medium
+
+    line-height: sz-1x * 6
+  }
+}
