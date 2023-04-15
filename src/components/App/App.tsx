@@ -1,18 +1,22 @@
 import {FC} from "react"
 import {observer} from "mobx-react"
+import classNames from "classnames"
 
+import ProductsSearch from "@components/ProductsSearch/ProductsSearch"
 import useRootStore from "@services/hooks/useRootStore"
 
-const App: FC = observer(() => {
-    const { feedbackStore } = useRootStore()
+import classes from "./App.module.styl"
 
-    return <div>
-        <form>
-            <input onChange={evt => feedbackStore.name = evt.target.value} value={feedbackStore.name} />
-            <input onChange={evt => feedbackStore.email = evt.target.value} value={feedbackStore.email} />
-            <input onChange={evt => feedbackStore.message = evt.target.value} value={feedbackStore.message} />
-        </form>
-    </div>
+const App: FC = observer(() => {
+    const { productsSearchStore } = useRootStore()
+
+    const listClass: string = classNames(classes.list, {
+        [classes.__loading]: productsSearchStore.productsAreLoading
+    })
+
+    return <main>
+        <ProductsSearch />
+    </main>
 })
 
 export default App
