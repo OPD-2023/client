@@ -44,8 +44,23 @@ export default class ProductsSearchStore {
         this.productsAreLoading = true
 
         try {
-            const products = await this.api.get<Product[]>("products", {similarTo: this.field})
+            // const products = await this.api.get<Product[]>("products", {similarTo: this.field})
+            const products = await new Promise<Product[]>(resolve => {
+                const arr = [
+                    "ficko",
+                    "sas",
+                    "bredik"
+                ]
 
+                setTimeout(() => {
+                    resolve([
+                        {imageURL: "wad", title: _.sample(arr), price: 123, article: 123},
+                        {imageURL: "wad", title: _.sample(arr), price: 123, article: 124},
+                        {imageURL: "wad", title: _.sample(arr), price: 123, article: 125},
+                        {imageURL: "wad", title: _.sample(arr), price: 123, article: 126},
+                    ])
+                }, _.random(1_000, 1_500))
+            })
             /**
              *
              * Если запрос не был прерван

@@ -49,6 +49,7 @@ module.exports = {
         /**
          *
          * Пути обязательно должны быть абсолютными
+         * TODO: вынести в функцию
          */
         alias: {
             "@components": path.resolve(__dirname, "src", "components"),
