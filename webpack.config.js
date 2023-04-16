@@ -44,7 +44,7 @@ const styleRule = (test, useCallback) => {
 }
 
 module.exports = {
-    mode: "production",
+    mode: "development",
     resolve: {
         extensions: [".js", ".ts", ".jsx", ".tsx"],
         /**

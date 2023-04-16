@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+header, nav {
+    display: block;
+}
+
 input {
     border: none;
     outline: none;

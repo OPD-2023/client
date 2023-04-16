@@ -10,8 +10,6 @@ import classes from "./ProductsSearch.module.styl"
 const ProductsSearch: FC = observer(() => {
     const { productsSearchStore } = useRootStore()
 
-    const areProductsExist: boolean = !!productsSearchStore.products && !!productsSearchStore.products.length
-
     const dropdownClass: string = classNames(classes.dropdown, {
         [classes.__loading]: productsSearchStore.productsAreLoading
     })
@@ -24,7 +22,7 @@ const ProductsSearch: FC = observer(() => {
             Найти
         </button>
         {
-            areProductsExist && <ul className={dropdownClass}>
+            productsSearchStore.products?.length && <ul className={dropdownClass}>
                 {
                     productsSearchStore.products!.map(product => <li className={classes.item} key={product.article}>
                         <Search24 />

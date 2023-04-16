@@ -2,11 +2,16 @@ import {FC} from "react"
 import {observer} from "mobx-react"
 
 import ProductsSearch from "@components/ProductsSearch/ProductsSearch"
+import Container from "@components/Container/Container"
+import GroupsCatalog from "@components/GroupsCatalog/GroupsCatalog";
+
+import classes from "./App.module.styl"
 
 const App: FC = observer(() => {
-    return <main>
+    return <Container className={classes.application}>
+        <GroupsCatalog />
         <ProductsSearch />
-    </main>
+    </Container>
 })
 
 export default App
