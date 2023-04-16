@@ -19,14 +19,7 @@ export default class GroupsCatalogStore {
     }
 
     fetchMainGroups = async () => {
-        // this.groups = await this.api.get<Group[]>("groups/main")
-        this.groups = [
-            {id: 1, title: "Ficko"},
-            {id: 2, title: "Kranz"},
-            {id: 3, title: "Poki4"},
-            {id: 4, title: "privet"},
-            {id: 5, title: "doawd"},
-        ]
+        this.groups = await this.api.get<Group[]>("groups/main")
     }
 
     scheduleVisibilityChange(isVisible: boolean): void {

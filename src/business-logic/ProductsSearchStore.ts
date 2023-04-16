@@ -44,29 +44,7 @@ export default class ProductsSearchStore {
         this.productsAreLoading = true
 
         try {
-            // const products = await this.api.get<Product[]>("products", {similarTo: this.field})
-            const products = await new Promise<Product[]>(resolve => {
-                setTimeout(() => {
-                    const titles = [
-                        "ficko",
-                        "dw",
-                        "wadawd",
-                        "wadajwd",
-                        "sasasas",
-                        "adawdawd",
-                        "whauwdhawdi",
-                        "wadjawdk",
-                        "wadnw"
-                    ]
-
-                    resolve([2, 4, 5, 1, 2, 7, 9, 10, 12, 4].map(id => ({
-                        imageURL: "wad",
-                        title: _.sample(titles),
-                        price: 1334,
-                        article: id + 120
-                    })))
-                }, 1_500)
-            })
+            const products = await this.api.get<Product[]>("products", {similarTo: this.field})
 
             /**
              *
