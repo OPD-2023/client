@@ -83,10 +83,12 @@ module.exports = {
             patterns: [
                 {
                     from: path.resolve(__dirname, "public"),
+                    /** Чтобы, когда копировать нечего, сборка не орала */
+                    noErrorOnMissing: true,
                     globOptions: {
                         ignore: [
                             path.resolve(__dirname, "public", "index.html")
-                        ]
+                        ],
                     }
                 }
             ]
