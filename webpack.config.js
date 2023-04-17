@@ -82,14 +82,9 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, "public"),
+                    from: path.resolve(__dirname, "public", "assets"),
                     /** Чтобы, когда копировать нечего, сборка не орала */
-                    noErrorOnMissing: true,
-                    globOptions: {
-                        ignore: [
-                            path.resolve(__dirname, "public", "index.html")
-                        ]
-                    }
+                    noErrorOnMissing: true
                 }
             ]
         }),
