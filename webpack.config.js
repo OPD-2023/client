@@ -2,6 +2,7 @@ const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { ProvidePlugin } = require("webpack")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 const NODE_MODULES_REGEXP = /node_modules/
 
@@ -69,7 +70,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./public/index.html",
+            template: path.resolve(__dirname, "public", "index.html"),
             minify: {
                 collapseWhitespace: true
             },
@@ -77,6 +78,20 @@ module.exports = {
         new ProvidePlugin({
             React: "react",
             _: "lodash"
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "public"),
+                    /** Чтобы, когда копировать нечего, сборка не орала */
+                    noErrorOnMissing: true,
+                    globOptions: {
+                        ignore: [
+                            path.resolve(__dirname, "public", "index.html")
+                        ]
+                    }
+                }
+            ]
         }),
         new CleanWebpackPlugin()
     ],

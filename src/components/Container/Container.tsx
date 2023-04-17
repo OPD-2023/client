@@ -1,15 +1,10 @@
-import {FC, ReactNode} from "react"
+import {FC, HTMLAttributes} from "react"
+import classNames from "classnames"
 
 import classes from "./Container.module.css"
 
-interface ContainerProps {
-    children: ReactNode;
-}
-
-const Container: FC<ContainerProps> = ({children}) => {
-    return <div className={classes.limiter}>
-        { children }
-    </div>
+const Container: FC<HTMLAttributes<HTMLDivElement>> = ({className, ...props}) => {
+    return <div className={classNames(classes.limiter, className)} {...props} />
 }
 
 export default Container

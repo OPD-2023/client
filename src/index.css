@@ -6,6 +6,10 @@
     font-family: Arial;
 }
 
+header, nav {
+    display: block;
+}
+
 input {
     border: none;
     outline: none;

@@ -1,0 +1,59 @@
+@import "variables.styl"
+
+.catalog {
+  // Согласно макету
+  flex-basis: 360px
+  flex-shrink: 0
+  align-self: stretch
+
+  position: relative
+
+  text-transform: uppercase
+
+  .header {
+    display: flex
+    align-items: center
+    justify-content: center
+
+    font-size: sz-f-medium
+
+    height: 100%
+    background-color: c-black
+    color: c-white
+    fill: c-white
+
+    font-weight: 600
+    cursor: pointer
+
+    svg {
+      transition: transform time-2x
+    }
+
+    &.__active {
+      svg {
+        transform: rotate(180deg)
+      }
+    }
+  }
+
+  .groups {
+    position: absolute
+    left: 0
+    top: 100%
+    width: 100%
+    font-weight: 500
+  }
+
+  .item {
+    background-color: c-black
+    color: c-white
+    padding: sz-2x
+    text-transform: uppercase
+    transition: color time-2x ease-out, background-color time-2x ease-out
+
+    &:hover {
+      background-color: c-white
+      color: c-black
+    }
+  }
+}

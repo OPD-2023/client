@@ -3,6 +3,6 @@
  *
  * Здесь будут храниться реальные эндпоинты, когда будет готов бэк
  */
-type Endpoint = "products" | "products/random"
+type Endpoint = "products" | "products/random" | "groups/main"
 
 export default Endpoint
