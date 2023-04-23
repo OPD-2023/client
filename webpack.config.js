@@ -13,7 +13,10 @@ const babelRule = (test, ...additionalPresets) => ({
         {
             loader: "babel-loader",
             options: {
-                presets: ["@babel/preset-env", ...additionalPresets]
+                presets: ["@babel/preset-env", ...additionalPresets],
+                plugins: [
+                    ["@babel/plugin-proposal-decorators", { legacy: true }]
+                ]
             }
         }
     ]
