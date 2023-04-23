@@ -84,8 +84,6 @@ export default class FeedbackStore implements Feedback {
     }
 
     private exportDataToLocalStorageDebounced = (): void => {
-        console.log("DEBOUNCED")
-
         if (this.debouncingTimer) {
             clearTimeout(this.debouncingTimer)
         }
