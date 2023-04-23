@@ -7,17 +7,16 @@ export default class ProductsSearchStore {
     /** millis */
     private static readonly DEBOUNCING_TIME = 1_000
 
+    @observable
     field: string = ""
+    @observable
     products: Product[] | null = null
+    @observable
     productsAreLoading: boolean = false
     private debouncingTimer?: NodeJS.Timeout
 
     constructor(private readonly api: ApiClient) {
-        makeObservable(this, {
-            field: observable,
-            products: observable,
-            productsAreLoading: observable
-        })
+        makeObservable(this)
 
         // TODO: заменить на autorun, если это будет возможно
         reaction(() => this.field, this.handleFieldChangeDebounced)

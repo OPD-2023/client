@@ -7,15 +7,14 @@ export default class GroupsCatalogStore {
     /** millis */
     private static readonly VISIBILITY_CHANGING_DELAY_TIME = 300
 
+    @observable
     groups: Group[] | null = null
+    @observable
     isVisible: boolean = false
     private visibilityChangingTimer?: NodeJS.Timeout
 
     constructor(private readonly api: ApiClient) {
-        makeObservable(this, {
-            groups: observable,
-            isVisible: observable
-        })
+        makeObservable(this)
     }
 
     fetchMainGroups = async () => {
