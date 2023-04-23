@@ -1,0 +1,27 @@
+@import "variables.styl"
+
+.form {
+  & > * {
+    margin: sz-2x
+  }
+
+  .label {
+    display: flex
+    flex-direction: column
+  }
+
+  .field {
+    margin-top: sz-1x
+    border-radius: 9px
+    border: 2px solid c-gray
+    width: 100%
+    max-width: 1100px
+    font-size: sz-f-regular
+    padding: sz-2x sz-3x
+  }
+
+  textarea.field {
+    resize: vertical
+    min-height: 10em
+  }
+}
