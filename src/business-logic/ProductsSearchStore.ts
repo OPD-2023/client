@@ -1,8 +1,12 @@
+import "reflect-metadata"
 import {makeObservable, observable, runInAction, reaction} from "mobx"
+import {inject, injectable} from "inversify"
 
 import ApiClient from "@api/client"
 import Product from "@models/Product"
+import DIContainerToken from "@models/DIContainerToken"
 
+@injectable()
 export default class ProductsSearchStore {
     /** millis */
     private static readonly DEBOUNCING_TIME = 1_000
@@ -15,7 +19,7 @@ export default class ProductsSearchStore {
     productsAreLoading: boolean = false
     private debouncingTimer?: NodeJS.Timeout
 
-    constructor(private readonly api: ApiClient) {
+    constructor(@inject(DIContainerToken.API_CLIENT_CONFIG) private readonly api: ApiClient) {
         makeObservable(this)
 
         // TODO: заменить на autorun, если это будет возможно

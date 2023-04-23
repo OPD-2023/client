@@ -1,4 +1,5 @@
 import {action, computed, makeObservable, observable, reaction} from "mobx"
+import {injectable} from "inversify"
 
 import Feedback from "@models/Feedback"
 import LocalStorageKey from "@models/LocalStorageKey"
@@ -10,6 +11,7 @@ import validateEmail from "@utils/validateEmail"
  * ВАЖНО: в приложении должен быть только один инстанс данного класса,
  * чтобы не было расчилловочки с localstorage, когда каждый экземпляр пытается записать туда что-то своё
  */
+@injectable()
 export default class FeedbackStore implements Feedback {
     /** millis */
     private static readonly DEBOUNCING_TIME: number = 250

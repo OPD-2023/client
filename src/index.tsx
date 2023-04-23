@@ -1,8 +1,10 @@
 import { createRoot } from "react-dom/client"
 import { configure } from "mobx"
+import { Provider as DIContainerProvider } from "inversify-react"
 
-import RootStoreProvider from "@services/components/RootStoreProvider"
 import App from "@components/App/App"
+import container from "@inversify-config"
+
 import "./index.css"
 
 /**
@@ -18,7 +20,7 @@ const root = createRoot(
 )
 
 root.render(
-    <RootStoreProvider>
+    <DIContainerProvider container={ container }>
         <App />
-    </RootStoreProvider>
+    </DIContainerProvider>
 )

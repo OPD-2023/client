@@ -1,8 +1,10 @@
 import {makeObservable, observable} from "mobx"
+import {inject, injectable} from "inversify"
 
 import ApiClient from "@api/client"
 import Group from "@models/Group"
 
+@injectable()
 export default class GroupsCatalogStore {
     /** millis */
     private static readonly VISIBILITY_CHANGING_DELAY_TIME = 300
@@ -13,7 +15,7 @@ export default class GroupsCatalogStore {
     isVisible: boolean = false
     private visibilityChangingTimer?: NodeJS.Timeout
 
-    constructor(private readonly api: ApiClient) {
+    constructor(@inject(ApiClient) private readonly api: ApiClient) {
         makeObservable(this)
     }
 

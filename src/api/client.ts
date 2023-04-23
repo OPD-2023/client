@@ -1,8 +1,12 @@
+import {inject, injectable} from "inversify"
+
 import HttpMethod from "@models/HttpMethod"
 import Endpoint from "@models/Endpoint"
 import QueryParams from "@models/QueryParams"
-import ApiClientConfig from "@models/ApiClientConfig";
+import ApiClientConfig from "@models/ApiClientConfig"
+import DIContainerToken from "@models/DIContainerToken"
 
+@injectable()
 export default class ApiClient {
 
     private static createQueryString(params: QueryParams): string {
@@ -22,7 +26,7 @@ export default class ApiClient {
     }
 
 
-    constructor(private readonly config: ApiClientConfig) {
+    constructor(@inject(DIContainerToken.API_CLIENT_CONFIG) private readonly config: ApiClientConfig) {
     }
 
     private createURL(endpoint: string, params?: QueryParams): string {

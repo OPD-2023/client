@@ -15,7 +15,8 @@ const babelRule = (test, ...additionalPresets) => ({
             options: {
                 presets: ["@babel/preset-env", ...additionalPresets],
                 plugins: [
-                    ["@babel/plugin-proposal-decorators", { legacy: true }]
+                    ["@babel/plugin-proposal-decorators", { legacy: true }],
+                    "babel-plugin-transform-typescript-metadata"
                 ]
             }
         }
@@ -60,8 +61,8 @@ module.exports = {
             "@models": path.resolve(__dirname, "src", "models"),
             "@business-logic": path.resolve(__dirname, "src", "business-logic"),
             "@api": path.resolve(__dirname, "src", "api"),
-            "@services": path.resolve(__dirname, "src", "services"),
             "@utils": path.resolve(__dirname, "src", "utils"),
+            "@inversify-config": path.resolve(__dirname, "inversify.config.ts"),
             "@app-config": path.resolve(__dirname, "app.config.json")
         }
     },

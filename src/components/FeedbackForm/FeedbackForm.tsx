@@ -1,13 +1,14 @@
 import {FC} from "react"
 import {observer} from "mobx-react"
+import {useInjection} from "inversify-react"
 
 import ErrorsList from "@components/ErrorsList/ErrorsList"
-import useRootStore from "@services/hooks/useRootStore"
+import FeedbackStore from "@business-logic/FeedbackStore"
 
 import classes from "./FeedbackForm.module.styl"
 
 const FeedbackForm: FC = observer(() => {
-    const { feedbackStore } = useRootStore()
+    const feedbackStore = useInjection<FeedbackStore>(FeedbackStore)
 
     // TODO: Добавить в плейсхолдеры фейковые данные
     return <form className={classes.form}>
