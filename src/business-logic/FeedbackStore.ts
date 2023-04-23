@@ -1,4 +1,4 @@
-import {action, autorun, computed, makeObservable, observable} from "mobx"
+import {action, computed, makeObservable, observable, reaction} from "mobx"
 
 import Feedback from "@models/Feedback"
 import LocalStorageKey from "@models/LocalStorageKey"
@@ -27,13 +27,14 @@ export default class FeedbackStore implements Feedback {
             nameErrors: computed,
             emailErrors: computed,
             messageErrors: computed,
+            serialized: computed,
             copyFrom: action
         })
 
         this.importDataFromLocalStorage()
 
         window.addEventListener("storage", this.updateDataOnStorage)
-        autorun(this.exportDataToLocalStorage)
+        reaction(() => this.serialized, this.exportDataToLocalStorageDebounced)
     }
 
     get nameErrors(): string[] {
@@ -48,19 +49,20 @@ export default class FeedbackStore implements Feedback {
         return mergeValidators(validateNotEmpty)(this.message)
     }
 
-    copyFrom(feedback: Feedback): void {
-        this.name = feedback.name
-        this.email = feedback.email
-        this.message = feedback.message
-    }
-
-    private get serialized(): string {
+    get serialized(): string {
         return JSON.stringify({
             name: this.name,
             email: this.email,
             message: this.message
         })
     }
+
+    copyFrom(feedback: Feedback): void {
+        this.name = feedback.name
+        this.email = feedback.email
+        this.message = feedback.message
+    }
+
 
     private updateDataOnStorage = (evt: StorageEvent): void => {
         if (evt.storageArea === localStorage && evt.key === LocalStorageKey.FEEDBACK) {
@@ -79,6 +81,16 @@ export default class FeedbackStore implements Feedback {
         if (serializedLocalStorageData) {
             this.copyFrom(JSON.parse(serializedLocalStorageData) as Feedback)
         }
+    }
+
+    private exportDataToLocalStorageDebounced = (): void => {
+        console.log("DEBOUNCED")
+
+        if (this.debouncingTimer) {
+            clearTimeout(this.debouncingTimer)
+        }
+
+        this.debouncingTimer = setTimeout(this.exportDataToLocalStorage, FeedbackStore.DEBOUNCING_TIME)
     }
 
     private exportDataToLocalStorage = (): void => {
