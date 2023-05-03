@@ -6,5 +6,7 @@ export default interface Product {
     readonly imageURL: string;
     readonly title: string;
     readonly price: number;
-    readonly article: number;
+    readonly article: string;
+    readonly currency: "руб" | "евро" | "доллар";
+    readonly rating: number;
 }
