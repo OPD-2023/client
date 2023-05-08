@@ -1,25 +1,67 @@
-import { FC } from "react"
+import classNames from "classnames"
+import { FC, useEffect } from "react"
 import { observer } from "mobx-react"
 import { useInjection } from "inversify-react"
 
 import ProductPageStore from "@business-logic/ProductPageStore"
 import Container from "@components/Container/Container"
+import ArrowVertical from "@components/ArrowVertical"
 
 import classes from "./ProductPage.module.styl"
 
-const ProductPage: FC = observer(() => {
-    const { currentProduct, isLoading, count } = useInjection<ProductPageStore>(ProductPageStore)
+interface ProductPageProps {
+    productId: number;
+}
+
+const ProductPage: FC<ProductPageProps> = observer(({productId}) => {
+    const { currentProduct, isLoading, count,
+            primaryImageIndex, loadProductById } = useInjection<ProductPageStore>(ProductPageStore)
+
+    useEffect(() => {
+        loadProductById(productId)
+    }, [productId])
 
     const isCurrentProductAvailable: boolean = !isLoading && !!currentProduct
 
     return <Container>
         {
             isCurrentProductAvailable
-            ? <Container>
+            ? <>
                 <h1 className={ classes.header }>{ currentProduct!.title }</h1>
                 <main className={ classes.info }>
-                    {/* Компонент фото со слайдером */}
-                    <div>VERTICAL SLIDER</div>
+                    <div className={ classes.imageControls }>
+                        <div className={ classes.imageSlider }>
+                            <div className={ classes.arrow }>
+                                <ArrowVertical />
+                            </div>
+                            <div className={ classes.imagesWrapper }>
+                                <div className={ classes.imagesContainer }>
+                                    {
+                                        currentProduct!.imagesUrls.map(imageUrl => <div
+                                            key={ imageUrl }
+                                            className={ classNames(classes.imageWrapper, classes.__secondary) }
+                                        >
+                                            <img
+                                                className={ classes.image }
+                                                src={ imageUrl }
+                                                alt={ `Image ${ imageUrl }` }
+                                            />
+                                        </div>)
+                                    }
+                                </div>
+                            </div>
+                            <div className={ classNames(classes.arrow, classes.__rotated) }>
+                                <ArrowVertical />
+                            </div>
+                        </div>
+                        <div className={ classNames(classes.imageWrapper, classes.__primary) }>
+                            <img
+                                className={ classes.image }
+                                src={ currentProduct!.imagesUrls[primaryImageIndex] }
+                                alt={ `Primary image ${ currentProduct!.imagesUrls[primaryImageIndex] }` }
+                            />
+                        </div>
+                    </div>
                     <section className={ classes.characteristics }>
                         <h3 className={ classes.characteristicsHeader }>
                             Основные характеристики товара
@@ -27,7 +69,10 @@ const ProductPage: FC = observer(() => {
                         <ul className={classes.characteristicsList}>
                             {
                                 Object.entries(currentProduct!.characteristics)
-                                    .map(([description, value], idx) => <li className={ classes.characteristic } key={ idx }>
+                                    .map(([description, value], idx) => <li
+                                        key={ idx }
+                                        className={ classes.characteristic }
+                                    >
                                         <span className={ classes.characteristicDescription }>{ description }</span>
                                         <span className={ classes.characteristicvalue }>{ value }</span>
                                     </li>)
@@ -45,9 +90,11 @@ const ProductPage: FC = observer(() => {
                         <button className={ classes.addButton }>Добавить</button>
                     </div>
                 </main>
-            </Container>
+            </>
             // TODO: сделать нормальный прелоадер
             : "Preloader..."
         }
     </Container>
 })
+
+export default ProductPage

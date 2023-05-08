@@ -1,0 +1,42 @@
+@import "variables.styl"
+
+.arrow {
+  display: flex
+  justify-content: center
+  align-items: center
+
+  fill: c-main
+
+  &.__rotated {
+    transform: rotate(180deg)
+  }
+}
+
+secondaryImageWrapperSize = 70px
+
+.imageWrapper {
+  border: 2px solid c-gray
+  border-radius: sz-1x
+  overflow: hidden
+
+  &.__primary {
+    max-width: 500px
+  }
+
+  &.__secondary {
+    display: flex
+    justify-content: center
+    align-items: center
+
+    width: secondaryImageWrapperSize
+    height: secondaryImageWrapperSize
+  }
+
+  &.__selected {
+    border: 2px solid c-main
+  }
+}
+
+.image {
+  height: 100%
+}

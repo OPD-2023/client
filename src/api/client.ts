@@ -1,4 +1,4 @@
-import {inject, injectable} from "inversify"
+import { inject, injectable } from "inversify"
 
 import HttpMethod from "@models/HttpMethod"
 import Endpoint from "@models/Endpoint"
@@ -15,7 +15,7 @@ export default class ApiClient {
         return "?" + queryStringWithoutPrefix
     }
 
-    private static createURI(endpoint: string, params?: Record): string {
+    private static createUri(endpoint: string, params?: Record): string {
         let URI = endpoint
 
         if (params) {
@@ -29,8 +29,8 @@ export default class ApiClient {
     constructor(@inject(DIContainerToken.API_CLIENT_CONFIG) private readonly config: ApiClientConfig) {
     }
 
-    private createURL(endpoint: string, params?: Record): string {
-        return `${this.config.baseURL}/${ApiClient.createURI(endpoint, params)}`
+    private createUrl(endpoint: string, params?: Record): string {
+        return `${this.config.baseURL}/${ApiClient.createUri(endpoint, params)}`
     }
 
     /**
@@ -41,7 +41,7 @@ export default class ApiClient {
         return new Promise<R>((resolve, reject) => {
             const XHR = new XMLHttpRequest()
 
-            XHR.open(method, this.createURL(endpoint, params))
+            XHR.open(method, this.createUrl(endpoint, params))
 
             XHR.onload = () => {
                 resolve(XHR.response)
