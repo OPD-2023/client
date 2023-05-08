@@ -1,4 +1,5 @@
 import {action, computed, makeObservable, observable, reaction} from "mobx"
+import {injectable} from "inversify"
 
 import Feedback from "@models/Feedback"
 import LocalStorageKey from "@models/LocalStorageKey"
@@ -10,26 +11,21 @@ import validateEmail from "@utils/validateEmail"
  * ВАЖНО: в приложении должен быть только один инстанс данного класса,
  * чтобы не было расчилловочки с localstorage, когда каждый экземпляр пытается записать туда что-то своё
  */
+@injectable()
 export default class FeedbackStore implements Feedback {
     /** millis */
     private static readonly DEBOUNCING_TIME: number = 250
 
     private debouncingTimer?: NodeJS.Timeout
+    @observable
     name: string = ""
+    @observable
     email: string = ""
+    @observable
     message: string = ""
 
     constructor() {
-        makeObservable(this, {
-            name: observable,
-            email: observable,
-            message: observable,
-            nameErrors: computed,
-            emailErrors: computed,
-            messageErrors: computed,
-            serialized: computed,
-            copyFrom: action
-        })
+        makeObservable(this)
 
         this.importDataFromLocalStorage()
 
@@ -37,18 +33,22 @@ export default class FeedbackStore implements Feedback {
         reaction(() => this.serialized, this.exportDataToLocalStorageDebounced)
     }
 
+    @computed
     get nameErrors(): string[] {
         return mergeValidators(validateNotEmpty)(this.name)
     }
 
+    @computed
     get emailErrors() {
         return mergeValidators(validateEmail)(this.email)
     }
 
+    @computed
     get messageErrors() {
         return mergeValidators(validateNotEmpty)(this.message)
     }
 
+    @computed
     get serialized(): string {
         return JSON.stringify({
             name: this.name,
@@ -57,6 +57,7 @@ export default class FeedbackStore implements Feedback {
         })
     }
 
+    @action
     copyFrom(feedback: Feedback): void {
         this.name = feedback.name
         this.email = feedback.email
