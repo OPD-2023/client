@@ -1,14 +1,15 @@
 import {FC, useEffect} from "react"
 import {observer} from "mobx-react"
+import {useInjection} from "inversify-react"
 import classNames from "classnames"
 
-import useRootStore from "@services/hooks/useRootStore"
 import ArrowDrop24 from "@components/ArrowDrop24"
+import GroupsCatalogStore from "@business-logic/GroupsCatalogStore"
 
 import classes from "./GroupsCatalog.module.styl"
 
 const GroupsCatalog: FC = observer(() => {
-    const { groupsCatalogStore } = useRootStore()
+    const groupsCatalogStore = useInjection<GroupsCatalogStore>(GroupsCatalogStore)
 
     useEffect(() => {
         groupsCatalogStore.fetchMainGroups()

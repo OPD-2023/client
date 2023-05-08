@@ -5,6 +5,7 @@ import ProductsSearch from "@components/ProductsSearch/ProductsSearch"
 import Container from "@components/Container/Container"
 import GroupsCatalog from "@components/GroupsCatalog/GroupsCatalog"
 import ProductCard from "@components/ProductCard/ProductCard"
+import FeedbackForm from "@components/FeedbackForm/FeedbackForm"
 import Product from "@models/Product"
 
 import classes from "./App.module.styl"
@@ -19,11 +20,14 @@ const product: Product = {
 };
 
 const App: FC = observer(() => {
-    return <Container className={classes.application}>
-        <GroupsCatalog />
-        <ProductsSearch />
-        <ProductCard product={ product } />
-    </Container>
+    return <main>
+        <Container className={classes.application}>
+            <GroupsCatalog />
+            <ProductsSearch />
+            <ProductCard product={ product } />
+        </Container>
+        <FeedbackForm />
+    </main>
 })
 
 export default App
