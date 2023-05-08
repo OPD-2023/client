@@ -1,8 +1,9 @@
 import { FC } from 'react'
+
 import classes from "./RatingIcon.module.styl"
 
 interface RatingIconProps {
-    filled: boolean
+    filled: boolean;
 }
 
 const RatingIcon: FC<RatingIconProps> = ({ filled }) => {
