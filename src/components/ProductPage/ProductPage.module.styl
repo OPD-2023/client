@@ -1,5 +1,9 @@
 @import "variables.styl"
 
+.info {
+  display: flex
+}
+
 arrowCoefficient = 1.05
 
 .arrow {
@@ -11,7 +15,7 @@ arrowCoefficient = 1.05
   padding: sz-1x
   border-radius: sz-1x
 
-  box-shadow: 0 0 10px #0000001A
+  box-shadow: 0 0 sz-2x #0000001A
 
   fill: c-main
 
@@ -95,3 +99,65 @@ secondaryImageWrapperSize = 70px
   vertical-align: top
   width: 100%
 }
+
+.characteristics {
+  flex-grow: 1
+  margin: sz-3x
+}
+
+.characteristicsHeader {
+  color: c-main
+}
+
+.characteristic {
+  display: flex
+  justify-content: space-between
+  padding: sz-1x
+  margin: sz-1x
+  border-bottom: 2px dashed c-main
+}
+
+.characteristicDescription {
+  font-weight: 600
+}
+
+.priceBanner {
+  padding: sz-3x
+  border-radius: sz-1x
+  box-shadow: 0 0 sz-2x #0000001A
+  flex-grow: 1
+  align-self: flex-start
+}
+
+.price {
+  margin: sz-3x 0
+
+  font-size: sz-f-medium
+  font-weight: 600
+}
+
+.counter {
+  display: flex
+  align-items: center
+  margin-bottom: sz-3x
+}
+
+.count {
+  margin: 0 sz-2x
+  font-weight: 600
+}
+
+.smallButton {
+  border-radius: sz-3x
+  font-size: sz-f-medium
+  width: 40px
+  height: 40px
+}
+
+.addButton {
+  border-radius: sz-1x
+  width: 100%
+  font-size: sz-f-medium
+  padding: 20px 0
+}
+

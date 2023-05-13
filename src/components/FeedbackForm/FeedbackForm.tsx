@@ -1,4 +1,4 @@
-import {FC} from "react"
+import {FC, RefObject} from "react"
 import {observer} from "mobx-react"
 import {useInjection} from "inversify-react"
 
@@ -7,7 +7,11 @@ import FeedbackStore from "@business-logic/FeedbackStore"
 
 import classes from "./FeedbackForm.module.styl"
 
-const FeedbackForm: FC = observer(() => {
+interface FeedbackFormProps {
+    messageBlockRef?: RefObject<HTMLLabelElement>;
+}
+
+const FeedbackForm: FC<FeedbackFormProps> = observer(({messageBlockRef}) => {
     const feedbackStore = useInjection<FeedbackStore>(FeedbackStore)
 
     // TODO: Добавить в плейсхолдеры фейковые данные
@@ -34,13 +38,12 @@ const FeedbackForm: FC = observer(() => {
                 !!feedbackStore.emailErrors.length && <ErrorsList errors={feedbackStore.emailErrors} />
             }
         </label>
-        <label className={classes.label}>
+        <label className={classes.label} ref={ messageBlockRef }>
             Сообщение:
             <textarea className={classes.field}
                       placeholder="Сообщение"
-                      onChange={evt => feedbackStore.message = evt.target.value}>
-                {feedbackStore.message}
-            </textarea>
+                      onChange={evt => feedbackStore.message = evt.target.value}
+                      value={ feedbackStore.message } />
             {
                 !!feedbackStore.messageErrors.length && <ErrorsList errors={feedbackStore.messageErrors} />
             }

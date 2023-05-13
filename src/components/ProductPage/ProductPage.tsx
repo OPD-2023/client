@@ -1,35 +1,43 @@
 import classNames from "classnames"
-import { FC, useEffect, useLayoutEffect, useRef, useState } from "react"
+import { FC, useEffect, useRef, useState } from "react"
 import { observer } from "mobx-react"
 import { useInjection } from "inversify-react"
 
 import ProductPageStore from "@business-logic/ProductPageStore"
 import Container from "@components/Container/Container"
 import ArrowVertical from "@components/ArrowVertical"
+import Button from "@components/Button/Button"
 
 import classes from "./ProductPage.module.styl"
 
 interface ProductPageProps {
     productId: number;
+    onAdd?: (payload: string) => void;
 }
 
-const ProductPage: FC<ProductPageProps> = observer(({productId}) => {
+const ProductPage: FC<ProductPageProps> = observer(({
+    productId,
+    onAdd
+}) => {
     const imagesWrapperRef = useRef<HTMLDivElement>(null)
-    const imageWrapperHeightRef = useRef<number | null>(null)
-    const imagesContainerMaxAvailableOffsetRef = useRef<number | null>(null)
 
     const productPageStore = useInjection<ProductPageStore>(ProductPageStore)
     const [imagesContainerOffset, setImagesContainerOffset] = useState<number>(0)
+    const [imageWrapperHeight, setImageWrapperHeight] = useState<number | null>(null)
+    const [imagesContainerMaxAvailableOffset, setImagesContainerMaxAvailableOffset] = useState<number | null>(null)
 
     const setImagesContainerOffsetSafely = (offset: number) =>
         setImagesContainerOffset(Math.max(
             0,
-            Math.min(offset, imagesContainerMaxAvailableOffsetRef.current!)
+            Math.min(offset, imagesWrapperRef.current!.scrollHeight - imagesWrapperRef.current!.clientHeight)
         ))
 
 
-    const setImagesContainerOffsetByIndexSafely = (idx: number) =>
-        setImagesContainerOffsetSafely(idx * imageWrapperHeightRef.current!)
+    const setImagesContainerOffsetByIndexSafely = (idx: number) => {
+        if (imageWrapperHeight) {
+            setImagesContainerOffsetSafely(idx * imageWrapperHeight!)
+        }
+    }
 
     useEffect(() => {
         productPageStore.loadProductById(productId)
@@ -37,38 +45,30 @@ const ProductPage: FC<ProductPageProps> = observer(({productId}) => {
 
     useEffect(() => {
         if (imagesWrapperRef.current) {
-            imagesContainerMaxAvailableOffsetRef.current = imagesWrapperRef.current!.scrollHeight - imagesWrapperRef.current!.clientHeight
+            setImagesContainerMaxAvailableOffset(
+                imagesWrapperRef.current.scrollHeight - imagesWrapperRef.current.clientHeight
+            )
         }
-    })
+    }, [productPageStore.currentProduct?.imagesUrls])
 
-    useLayoutEffect(() => {
-        const onWheel = (evt: WheelEvent): void => {
-            evt.preventDefault()
-
-            setImagesContainerOffsetSafely(imagesContainerOffset + evt.deltaY)
-        }
-
-        if (imagesWrapperRef.current) {
-            imagesWrapperRef.current.addEventListener("wheel", onWheel, { passive: false })
-        }
-
-        return () => {
-            if (imagesWrapperRef.current) {
-                imagesWrapperRef.current.removeEventListener("wheel", onWheel)
-            }
-        }
-    })
-
-    useLayoutEffect(() => {
-        if (productPageStore.currentProduct) {
-            imageWrapperHeightRef.current =
-                imagesWrapperRef.current!.scrollHeight / productPageStore.currentProduct.imagesUrls.length
+    useEffect(() => {
+        if (productPageStore.currentProduct && imagesWrapperRef.current) {
+            setImageWrapperHeight(
+                imagesWrapperRef.current.scrollHeight / productPageStore.currentProduct.imagesUrls.length
+            )
         }
     }, [productPageStore.currentProduct])
 
     useEffect(() => {
         setImagesContainerOffsetByIndexSafely(productPageStore.primaryImageIndex)
     }, [productPageStore.primaryImageIndex])
+
+    const onAddButtonClick = () => {
+        if (onAdd) {
+            // TODO: вынести куда-то
+            onAdd(`Меня заинтересовал товар "${productPageStore.currentProduct!.title}" с артикулом ${productPageStore.currentProduct!.article} и следующими характеристиками:\n${ Object.entries(productPageStore.currentProduct!.characteristics).map(([characteristic, value]) => `- ${characteristic}: ${value}`).join("\n") }\nв количестве ${productPageStore.count} штук\n`)
+        }
+    }
 
     const isCurrentProductAvailable: boolean = !productPageStore.isLoading && !!productPageStore.currentProduct
 
@@ -83,7 +83,7 @@ const ProductPage: FC<ProductPageProps> = observer(({productId}) => {
                             <button
                                 type="button"
                                 className={ classes.arrow }
-                                onClick={ () => setImagesContainerOffsetSafely(imagesContainerOffset - imageWrapperHeightRef.current!) }
+                                onClick={ () => setImagesContainerOffsetSafely(imagesContainerOffset - imageWrapperHeight!) }
                                 disabled={ imagesContainerOffset === 0 }>
                                 <ArrowVertical />
                             </button>
@@ -123,8 +123,8 @@ const ProductPage: FC<ProductPageProps> = observer(({productId}) => {
                             <button
                                 type="button"
                                 className={ classNames(classes.arrow, classes.__rotated) }
-                                onClick={ () => setImagesContainerOffsetByIndexSafely(productPageStore.primaryImageIndex + 1) }
-                                disabled={ !imagesContainerMaxAvailableOffsetRef.current || imagesContainerOffset >= imagesContainerMaxAvailableOffsetRef.current }
+                                onClick={ () => setImagesContainerOffsetSafely(imagesContainerOffset + imageWrapperHeight!) }
+                                disabled={ !imagesContainerMaxAvailableOffset || imagesContainerOffset >= imagesContainerMaxAvailableOffset }
                             >
                                 <ArrowVertical />
                             </button>
@@ -149,7 +149,7 @@ const ProductPage: FC<ProductPageProps> = observer(({productId}) => {
                                         className={ classes.characteristic }
                                     >
                                         <span className={ classes.characteristicDescription }>{ description }</span>
-                                        <span className={ classes.characteristicvalue }>{ value }</span>
+                                        <span className={ classes.characteristicValue }>{ value }</span>
                                     </li>)
                             }
                         </ul>
@@ -158,11 +158,26 @@ const ProductPage: FC<ProductPageProps> = observer(({productId}) => {
                         Цена:
                         <div className={ classes.price }>{ productPageStore.currentProduct!.price } руб</div>
                         <div className={ classes.counter }>
-                            <button className={ classes.smallButton }>+</button>
+                            <Button className={ classes.smallButton } onClick={ () => productPageStore.count++  }>
+                                +
+                            </Button>
+                            <span className={ classes.count }>
                                 { productPageStore.count }
-                            <button className={ classes.smallButton }>-</button>
+                            </span>
+                            <Button
+                                className={ classes.smallButton }
+                                onClick={ () => productPageStore.count-- }
+                                disabled={ productPageStore.count === 0 }>
+                                -
+                            </Button>
                         </div>
-                        <button className={ classes.addButton }>Добавить</button>
+                        <Button
+                            className={ classes.addButton }
+                            onClick={ onAddButtonClick }
+                            disabled={ productPageStore.count === 0 }>
+                            Добавить
+                        </Button>
+                        {/*<button className={ classes.addButton }>Добавить</button>*/}
                     </div>
                 </main>
             </>
