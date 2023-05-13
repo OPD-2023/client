@@ -1,32 +1,86 @@
 @import "variables.styl"
 
+arrowCoefficient = 1.05
+
 .arrow {
   display: flex
   justify-content: center
   align-items: center
 
+  margin: sz-1x 0
+  padding: sz-1x
+  border-radius: sz-1x
+
+  box-shadow: 0 0 10px #0000001A
+
   fill: c-main
 
+  transition: time-2x transform, time-2x opacity
+
+  &[disabled] {
+    opacity: 0.5
+    cursor: default
+  }
+
   &.__rotated {
-    transform: rotate(180deg)
+    transform: rotate(0.5turn)
+  }
+
+  &:not([disabled]) {
+    &.__rotated:hover {
+      transform: rotate(0.5turn) scale(arrowCoefficient)
+    }
+
+    &:hover {
+      transform: scale(arrowCoefficient)
+    }
   }
 }
 
+.imageControls {
+  display: flex
+}
+
+.imageSlider {
+  margin: sz-2x
+  display: flex
+  flex-direction: column
+}
+
+.imagesWrapper {
+  overflow: hidden
+  max-height: 350px
+}
+
+.imagesContainer {
+  transition: time-2x transform
+}
+
+.imageDivider {
+  padding: sz-1x
+}
+
+primaryImageWrapperSize = 500px
 secondaryImageWrapperSize = 70px
 
 .imageWrapper {
+  display: flex
+  justify-content: center
+  align-items: center
+
+  background-color: c-light-gray
+
   border: 2px solid c-gray
   border-radius: sz-1x
   overflow: hidden
 
   &.__primary {
-    max-width: 500px
+    width: primaryImageWrapperSize
+    height: primaryImageWrapperSize
   }
 
   &.__secondary {
-    display: flex
-    justify-content: center
-    align-items: center
+    cursor: pointer
 
     width: secondaryImageWrapperSize
     height: secondaryImageWrapperSize
@@ -38,5 +92,6 @@ secondaryImageWrapperSize = 70px
 }
 
 .image {
-  height: 100%
+  vertical-align: top
+  width: 100%
 }

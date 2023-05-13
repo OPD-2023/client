@@ -1,5 +1,5 @@
 import classNames from "classnames"
-import { FC, useEffect } from "react"
+import { FC, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { observer } from "mobx-react"
 import { useInjection } from "inversify-react"
 
@@ -14,51 +14,126 @@ interface ProductPageProps {
 }
 
 const ProductPage: FC<ProductPageProps> = observer(({productId}) => {
-    const { currentProduct, isLoading, count,
-            primaryImageIndex, loadProductById } = useInjection<ProductPageStore>(ProductPageStore)
+    const imagesWrapperRef = useRef<HTMLDivElement>(null)
+    const imageWrapperHeightRef = useRef<number | null>(null)
+    const imagesContainerMaxAvailableOffsetRef = useRef<number | null>(null)
+
+    const productPageStore = useInjection<ProductPageStore>(ProductPageStore)
+    const [imagesContainerOffset, setImagesContainerOffset] = useState<number>(0)
+
+    const setImagesContainerOffsetSafely = (offset: number) =>
+        setImagesContainerOffset(Math.max(
+            0,
+            Math.min(offset, imagesContainerMaxAvailableOffsetRef.current!)
+        ))
+
+
+    const setImagesContainerOffsetByIndexSafely = (idx: number) =>
+        setImagesContainerOffsetSafely(idx * imageWrapperHeightRef.current!)
 
     useEffect(() => {
-        loadProductById(productId)
+        productPageStore.loadProductById(productId)
     }, [productId])
 
-    const isCurrentProductAvailable: boolean = !isLoading && !!currentProduct
+    useEffect(() => {
+        if (imagesWrapperRef.current) {
+            imagesContainerMaxAvailableOffsetRef.current = imagesWrapperRef.current!.scrollHeight - imagesWrapperRef.current!.clientHeight
+        }
+    })
+
+    useLayoutEffect(() => {
+        const onWheel = (evt: WheelEvent): void => {
+            evt.preventDefault()
+
+            setImagesContainerOffsetSafely(imagesContainerOffset + evt.deltaY)
+        }
+
+        if (imagesWrapperRef.current) {
+            imagesWrapperRef.current.addEventListener("wheel", onWheel, { passive: false })
+        }
+
+        return () => {
+            if (imagesWrapperRef.current) {
+                imagesWrapperRef.current.removeEventListener("wheel", onWheel)
+            }
+        }
+    })
+
+    useLayoutEffect(() => {
+        if (productPageStore.currentProduct) {
+            imageWrapperHeightRef.current =
+                imagesWrapperRef.current!.scrollHeight / productPageStore.currentProduct.imagesUrls.length
+        }
+    }, [productPageStore.currentProduct])
+
+    useEffect(() => {
+        setImagesContainerOffsetByIndexSafely(productPageStore.primaryImageIndex)
+    }, [productPageStore.primaryImageIndex])
+
+    const isCurrentProductAvailable: boolean = !productPageStore.isLoading && !!productPageStore.currentProduct
 
     return <Container>
         {
             isCurrentProductAvailable
             ? <>
-                <h1 className={ classes.header }>{ currentProduct!.title }</h1>
+                <h1 className={ classes.header }>{ productPageStore.currentProduct!.title }</h1>
                 <main className={ classes.info }>
                     <div className={ classes.imageControls }>
                         <div className={ classes.imageSlider }>
-                            <div className={ classes.arrow }>
+                            <button
+                                type="button"
+                                className={ classes.arrow }
+                                onClick={ () => setImagesContainerOffsetSafely(imagesContainerOffset - imageWrapperHeightRef.current!) }
+                                disabled={ imagesContainerOffset === 0 }>
                                 <ArrowVertical />
-                            </div>
-                            <div className={ classes.imagesWrapper }>
-                                <div className={ classes.imagesContainer }>
+                            </button>
+                            <div
+                                className={ classes.imagesWrapper }
+                                ref={ imagesWrapperRef }
+                            >
+                                <div
+                                    className={ classes.imagesContainer }
+                                    // ref={ imagesContainerRef }
+                                    style={{ transform: `translateY(${- imagesContainerOffset}px)` }}>
                                     {
-                                        currentProduct!.imagesUrls.map(imageUrl => <div
+                                        productPageStore.currentProduct!.imagesUrls.map((imageUrl, idx) => <div
                                             key={ imageUrl }
-                                            className={ classNames(classes.imageWrapper, classes.__secondary) }
+                                            className={ classes.imageDivider }
                                         >
-                                            <img
-                                                className={ classes.image }
-                                                src={ imageUrl }
-                                                alt={ `Image ${ imageUrl }` }
-                                            />
+                                            <div
+                                                className={ classNames(
+                                                    classes.imageWrapper,
+                                                    classes.__secondary,
+                                                    {
+                                                        [classes.__selected]: idx === productPageStore.primaryImageIndex
+                                                    }
+                                                ) }
+                                                onClick={ () => productPageStore.primaryImageIndex = idx }
+                                            >
+                                                <img
+                                                    className={ classes.image }
+                                                    src={ imageUrl }
+                                                    alt={ `Image ${ imageUrl }` }
+                                                />
+                                            </div>
                                         </div>)
                                     }
                                 </div>
                             </div>
-                            <div className={ classNames(classes.arrow, classes.__rotated) }>
+                            <button
+                                type="button"
+                                className={ classNames(classes.arrow, classes.__rotated) }
+                                onClick={ () => setImagesContainerOffsetByIndexSafely(productPageStore.primaryImageIndex + 1) }
+                                disabled={ !imagesContainerMaxAvailableOffsetRef.current || imagesContainerOffset >= imagesContainerMaxAvailableOffsetRef.current }
+                            >
                                 <ArrowVertical />
-                            </div>
+                            </button>
                         </div>
                         <div className={ classNames(classes.imageWrapper, classes.__primary) }>
                             <img
                                 className={ classes.image }
-                                src={ currentProduct!.imagesUrls[primaryImageIndex] }
-                                alt={ `Primary image ${ currentProduct!.imagesUrls[primaryImageIndex] }` }
+                                src={ productPageStore.currentProduct!.imagesUrls[productPageStore.primaryImageIndex] }
+                                alt={ `Primary image ${ productPageStore.currentProduct!.imagesUrls[productPageStore.primaryImageIndex] }` }
                             />
                         </div>
                     </div>
@@ -68,7 +143,7 @@ const ProductPage: FC<ProductPageProps> = observer(({productId}) => {
                         </h3>
                         <ul className={classes.characteristicsList}>
                             {
-                                Object.entries(currentProduct!.characteristics)
+                                Object.entries(productPageStore.currentProduct!.characteristics)
                                     .map(([description, value], idx) => <li
                                         key={ idx }
                                         className={ classes.characteristic }
@@ -81,10 +156,10 @@ const ProductPage: FC<ProductPageProps> = observer(({productId}) => {
                     </section>
                     <div className={ classes.priceBanner }>
                         Цена:
-                        <div className={ classes.price }>{ currentProduct!.price } руб</div>
+                        <div className={ classes.price }>{ productPageStore.currentProduct!.price } руб</div>
                         <div className={ classes.counter }>
                             <button className={ classes.smallButton }>+</button>
-                            { count }
+                                { productPageStore.count }
                             <button className={ classes.smallButton }>-</button>
                         </div>
                         <button className={ classes.addButton }>Добавить</button>
