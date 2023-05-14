@@ -1,11 +1,8 @@
-import React from 'react';
-
 import classes from "./Footer.module.styl"
-import Container from "@components/Container/Container";
+import Container from "@components/Container/Container"
 
 const Footer = () => {
-    return (
-        <footer className={classes.footer}>
+    return <footer className={classes.footer}>
             <Container className={classes.outer}>
                 <h1 className={classes.title}>ООО “ГАЗСТРОЙМАШИНА”</h1>
                 <div className={classes.container}>
@@ -29,7 +26,6 @@ const Footer = () => {
                 </div>
             </Container>
         </footer>
-    );
-};
+}
 
-export default Footer;
+export default Footer
