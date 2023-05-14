@@ -1,0 +1,30 @@
+photo-margin = 48px
+
+.historyItem {
+  display: flex
+  height: fit-content
+
+  &:not(:last-child) {
+    margin-bottom: 16px
+  }
+
+  p {
+    font-weight: 600
+    font-size: 20px
+  }
+
+  .photo {
+    height: 100%
+    max-width: 250px
+    object-fit contain
+  }
+
+  .left {
+    order: -1
+    margin-right: photo-margin
+  }
+
+  .right {
+    margin-left: photo-margin
+  }
+}

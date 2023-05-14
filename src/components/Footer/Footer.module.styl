@@ -6,16 +6,16 @@
 
   .outer {
     display: flex
-    flex-direction column
-    padding: 32px 0
+    flex-direction: column
+    padding: 24px 0
 
-    & :not(:last-child) {
+    & > :not(:last-child) {
       margin-bottom: 32px
     }
 
     .title {
       color: c-main
-      font-size: 28px
+      font-size: 24px
     }
 
     .container {
@@ -36,18 +36,19 @@
         }
 
         .heading {
-          font-size: 24px
+          font-size: 20px
         }
 
         .text {
           word-wrap: anywhere
           word-break keep-all
-          font-size: 15px
+          font-size: 14px
         }
 
         .link {
           color: c-black
           text-decoration: underline
+          font-size: 14px
         }
       }
     }

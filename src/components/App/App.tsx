@@ -5,9 +5,10 @@ import ProductsSearch from "@components/ProductsSearch/ProductsSearch"
 import Container from "@components/Container/Container"
 import GroupsCatalog from "@components/GroupsCatalog/GroupsCatalog";
 import FeedbackForm from "@components/FeedbackForm/FeedbackForm"
+import Footer from "@components/Footer/Footer";
+import AboutCompanyPage from "@components/AboutCompanyPage/AboutCompanyPage";
 
 import classes from "./App.module.styl"
-import Footer from "@components/Footer/Footer";
 
 const App: FC = observer(() => {
     return <main>
@@ -15,6 +16,7 @@ const App: FC = observer(() => {
             <GroupsCatalog />
             <ProductsSearch />
         </Container>
+        <AboutCompanyPage/>
         <FeedbackForm />
         <Footer />
     </main>
