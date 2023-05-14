@@ -29,8 +29,10 @@ const App: FC = observer(() => {
             <GroupsCatalog />
             <ProductsSearch />
         </Container>
-        <FeedbackForm messageBlockRef={ feedbackMessageBlockRef } />
         <ProductPage productId={0} onAdd={ onProductPageAdd } />
+        <Container>
+            <FeedbackForm messageBlockRef={ feedbackMessageBlockRef } />
+        </Container>
     </main>
 })
 

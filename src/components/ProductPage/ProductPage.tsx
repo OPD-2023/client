@@ -93,7 +93,6 @@ const ProductPage: FC<ProductPageProps> = observer(({
                             >
                                 <div
                                     className={ classes.imagesContainer }
-                                    // ref={ imagesContainerRef }
                                     style={{ transform: `translateY(${- imagesContainerOffset}px)` }}>
                                     {
                                         productPageStore.currentProduct!.imagesUrls.map((imageUrl, idx) => <div
@@ -158,17 +157,17 @@ const ProductPage: FC<ProductPageProps> = observer(({
                         Цена:
                         <div className={ classes.price }>{ productPageStore.currentProduct!.price } руб</div>
                         <div className={ classes.counter }>
-                            <Button className={ classes.smallButton } onClick={ () => productPageStore.count++  }>
-                                +
-                            </Button>
-                            <span className={ classes.count }>
-                                { productPageStore.count }
-                            </span>
                             <Button
                                 className={ classes.smallButton }
                                 onClick={ () => productPageStore.count-- }
                                 disabled={ productPageStore.count === 0 }>
                                 -
+                            </Button>
+                            <span className={ classes.count }>
+                                { productPageStore.count }
+                            </span>
+                            <Button className={ classes.smallButton } onClick={ () => productPageStore.count++  }>
+                                +
                             </Button>
                         </div>
                         <Button
@@ -177,9 +176,16 @@ const ProductPage: FC<ProductPageProps> = observer(({
                             disabled={ productPageStore.count === 0 }>
                             Добавить
                         </Button>
-                        {/*<button className={ classes.addButton }>Добавить</button>*/}
                     </div>
                 </main>
+                <section className={ classes.descriptionSection }>
+                    <h2 className={ classes.descriptionHeader }>Описание</h2>
+                    {
+                        productPageStore.currentProduct!.descriptionParagraphs.map(descriptionParagraph => <p className={ classes.descriptionParagraph }>
+                            { descriptionParagraph }
+                        </p>)
+                    }
+                </section>
             </>
             // TODO: сделать нормальный прелоадер
             : "Preloader..."
