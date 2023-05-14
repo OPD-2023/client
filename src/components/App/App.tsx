@@ -8,6 +8,7 @@ import GroupsCatalog from "@components/GroupsCatalog/GroupsCatalog"
 import FeedbackForm from "@components/FeedbackForm/FeedbackForm"
 import ProductPage from "@components/ProductPage/ProductPage"
 import FeedbackStore from "@business-logic/FeedbackStore"
+import Footer from "@components/Footer/Footer"
 
 import classes from "./App.module.styl"
 
@@ -33,6 +34,7 @@ const App: FC = observer(() => {
         <Container>
             <FeedbackForm messageBlockRef={ feedbackMessageBlockRef } />
         </Container>
+        <Footer />
     </main>
 })
 
