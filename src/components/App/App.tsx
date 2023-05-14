@@ -7,6 +7,7 @@ import GroupsCatalog from "@components/GroupsCatalog/GroupsCatalog";
 import FeedbackForm from "@components/FeedbackForm/FeedbackForm"
 
 import classes from "./App.module.styl"
+import Footer from "@components/Footer/Footer";
 
 const App: FC = observer(() => {
     return <main>
@@ -15,6 +16,7 @@ const App: FC = observer(() => {
             <ProductsSearch />
         </Container>
         <FeedbackForm />
+        <Footer />
     </main>
 })
 

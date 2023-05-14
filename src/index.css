@@ -23,3 +23,7 @@ button {
 ul {
     list-style: none;
 }
+
+.footer {
+    display: block;
+}
