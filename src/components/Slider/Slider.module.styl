@@ -1,0 +1,43 @@
+@import "variables.styl"
+
+arrowSize = 50px
+
+.wrapper {
+  position: relative
+  overflow hidden
+
+  .container {
+    display: flex
+  }
+
+  .arrow {
+    position: absolute
+    display: flex
+    align-items: center
+    justify-content: center
+    border-radius: 50%
+    margin: 0 sz-2x
+    margin-top: -arrowSize / 2
+    border: 2px solid c-main
+    background-color: c-white
+    z-index: 9999
+    width: arrowSize
+    height: arrowSize
+    top: 50%
+    fill: c-main
+    transition: time-1x transform
+
+    &[disabled] {
+      transform: scale(0)
+    }
+
+    &.__left {
+      left: 0
+    }
+
+    &.__right {
+      right: 0
+      transform: rotate(0.5turn)
+    }
+  }
+}

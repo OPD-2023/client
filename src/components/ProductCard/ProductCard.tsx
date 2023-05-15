@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { FC } from "react"
 
-import Product from "@models/Product";
+import Product from "@models/Product"
+import Star24 from "@components/Star24"
 
-import classes from "./ProductCard.module.styl";
-import RatingIcon from "../RatingIcon/RatingIcon";
+import classes from "./ProductCard.module.styl"
 
 interface ProductCardProps {
 	product: Product;
@@ -12,8 +12,8 @@ interface ProductCardProps {
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
 	const { article, title, price, currency, imageURL, rating } = product;
 
-	const stars = Array.from({ length: 5 }, (_, index) => (
-		<RatingIcon key={ index } filled={ index < rating } />
+	const stars = Array.from({ length: 5 }, (_, idx) => (
+		<Star24 key={ idx } filled={ idx < rating } />
 	));
 
 	return <div className={ classes.productCard }>
@@ -29,7 +29,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
 			<p className={ classes.currency }>{ currency }</p>
 		</div>
 		<div>{ stars }</div>
-	</div>;
+	</div>
 };
 
 export default ProductCard;
