@@ -7,6 +7,7 @@ import ProductsSearchStore from "@business-logic/ProductsSearchStore"
 import FeedbackStore from "@business-logic/FeedbackStore"
 import ApiClient from "@api/client"
 import appConfig from "@app-config"
+import AboutCompanyStore from "@business-logic/AboutCompanyStore";
 
 const container = new Container()
 
@@ -15,5 +16,6 @@ container.bind<ApiClient>(ApiClient).toSelf().inSingletonScope()
 container.bind<GroupsCatalogStore>(GroupsCatalogStore).toSelf().inSingletonScope()
 container.bind<ProductsSearchStore>(ProductsSearchStore).toSelf().inSingletonScope()
 container.bind<FeedbackStore>(FeedbackStore).toSelf().inSingletonScope()
+container.bind<AboutCompanyStore>(AboutCompanyStore).toSelf().inSingletonScope()
 
 export default container

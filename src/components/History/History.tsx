@@ -1,39 +1,26 @@
-import HistoryData, {Status} from "@models/HistoryData";
+import {useInjection} from "inversify-react";
+import {FC, useEffect} from "react";
+import {observer} from "mobx-react";
+
 import HistoryItem from "@components/HistoryItem/HistoryItem";
+import AboutCompanyStore from "@business-logic/AboutCompanyStore";
 
 import styles from "./History.module.styl"
 
-const data: HistoryData[] = [
-    {
-        id: 1,
-        description: "Компания «Газстроймашина» имеет более чем полувековой опыт работы в области создания технических средств для строительства и ремонта магистральных трубопроводов",
-        status: null,
-        imagePath: null
-    },
-    {
-        id: 2,
-        description: "22.02.1953 г. в соответствии с Постановлением Совета Министров ССР от 18.05.1952 г. и Приказом Министерства нефтяной промышленности в рамках данного Министерства было организовано Специальное конструкторское бюро «Нефтестроймашина». В 1958 году предприятие было переименовано в Специальное конструкторское бюро «Газстроймашина». Организация была создано с целью создания эффективных технических средств и технологий, используемых при строительстве и ремонте магистральных газонефтепроводов.",
-        status: Status.RIGHT,
-        imagePath: "http://www.gazmashina.narod.ru/oldfoto1.jpg"
-    },
-    {
-        id: 3,
-        description: "За годы работы сотрудниками конструкторским бюро были спроектированы и произведены многие машины и оборудование, обеспечившие развитие нефтегазовой промышленности России.",
-        status: null,
-        imagePath: null
-    },
-    {
-        id: 4,
-        description: "В 1959 году при расширении конструкторского бюро с целью повышения эффективности деятельности организации был сформирован Ленинградский филиал Специального конструкторского бюро «Газстроймашина». В 1994 году как и с большинством государственных предприятий России было проведено акционирование организации и преобразование в акционерное общество. Оно получило название Ленинградский филиал Открытого акционерного общества Специальное конструкторское бюро «Газстроймашина».",
-        status: Status.LEFT,
-        imagePath: "http://www.gazmashina.narod.ru/oldfoto2.jpg"
-    },
-]
+const History: FC = observer(() => {
+    const aboutCompanyPageStore = useInjection<AboutCompanyStore>(AboutCompanyStore)
 
-const History = () => {
+    useEffect(() => {
+        aboutCompanyPageStore.fetchHistory()
+    }, [])
+
     return <div className={styles.history}>
-        {data.map(historyItem => <HistoryItem key={historyItem.id} historyItem={historyItem}/>)}
+        {
+            !aboutCompanyPageStore.isHistoryDataLoading
+            &&
+            aboutCompanyPageStore.historyData.map(historyItem => <HistoryItem key={historyItem.id} historyItem={historyItem}/>)
+        }
     </div>
-};
+});
 
 export default History;

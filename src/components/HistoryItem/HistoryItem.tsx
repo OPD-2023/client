@@ -6,7 +6,7 @@ const HistoryItem = (props: { historyItem: HistoryData }) => {
     return <div className={styles.historyItem}>
         <p>{props.historyItem.description}</p>
         {
-            props.historyItem.imagePath
+            props.historyItem.image_path
             &&
             <img
                 className={
@@ -15,7 +15,7 @@ const HistoryItem = (props: { historyItem: HistoryData }) => {
                         (props.historyItem.status == Status.LEFT ? styles.left : styles.right)
                     ].join(" ")
                 }
-                src={props.historyItem.imagePath}
+                src={props.historyItem.image_path}
                 alt={"История"}
             />
         }

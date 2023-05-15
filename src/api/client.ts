@@ -44,7 +44,7 @@ export default class ApiClient {
             XHR.open(method, this.createURL(endpoint, params))
 
             XHR.onload = () => {
-                resolve(XHR.response)
+                resolve(JSON.parse(XHR.response))
             }
 
             XHR.onerror = () => {
