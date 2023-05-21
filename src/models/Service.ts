@@ -1,11 +1,11 @@
-type Subclause = {
+type Subservice = {
     id: number
-    content: string
+    description: string
 }
 
 export default interface Service {
     readonly id: number
     readonly title: string
     readonly description: string
-    readonly subclauses: Subclause[]
+    readonly sub_services: Subservice[]
 }

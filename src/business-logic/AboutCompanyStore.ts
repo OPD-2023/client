@@ -49,6 +49,7 @@ export default class AboutCompanyStore {
         this.areServicesLoading = true
         try {
             const services = await this.api.get<Service[]>("services")
+            console.log(services)
             runInAction(() => {
                 this.services = services
             })
