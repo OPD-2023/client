@@ -1,0 +1,57 @@
+@import "variables.styl"
+
+.list {
+  display: flex
+  flex-direction: column
+  flex-wrap wrap
+  max-height: 100%
+  margin: sz-2x
+  position: fixed
+  z-index: 9999
+  left: 0
+  bottom: 0
+  max-width: 30vw
+
+  .iconContainer {
+    display: flex
+    align-items: center
+    justify-content: center
+    vertical-align: top
+    padding: sz-1x
+    cursor: pointer
+    transition: time-2x transform
+
+    &:hover {
+      transform: rotate(0.25turn)
+    }
+  }
+
+  .notification {
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin: sz-1x
+    padding: sz-3x
+    border-radius: sz-2x
+    opacity: 0.9
+    transition: time-1x transform, time-1x opacity
+    word-break: break-word
+
+    &:hover {
+      transform: scale(1.025)
+      opacity: 1
+    }
+
+    &.__info {
+      background-color: c-white
+      border: 2px dashed c-main
+      border-left: 4px solid c-main
+    }
+
+    &.__error {
+      background-color: c-white
+      border: 2px dashed #bf0a30
+      border-left: 4px solid #bf0a30
+    }
+  }
+}

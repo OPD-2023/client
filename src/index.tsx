@@ -3,6 +3,7 @@ import { configure } from "mobx"
 import { Provider as DIContainerProvider } from "inversify-react"
 
 import App from "@components/App/App"
+import Notifications from "@components/Notifications"
 import container from "@inversify-config"
 
 import "./index.css"
@@ -22,5 +23,6 @@ const root = createRoot(
 root.render(
     <DIContainerProvider container={ container }>
         <App />
+        <Notifications />
     </DIContainerProvider>
 )
