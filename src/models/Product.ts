@@ -11,4 +11,6 @@ export default interface Product {
     readonly article: number;
     readonly characteristics: Record;
     readonly descriptionParagraphs: string[];
+    readonly currency: "руб" | "евро" | "доллар";
+    readonly rating: number;
 }

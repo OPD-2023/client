@@ -1,0 +1,79 @@
+@import "variables.styl" 
+
+.productCard {
+    background-color: c-white
+    padding: 21px 19px
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    box-shadow: 0px 4px 4px c-gray
+
+    .imageContainer {
+        background-color: c-white
+        margin-bottom: 3px
+        padding: 0 12px 57px 0
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        border: 4px solid c-gray
+
+        .article {
+            background-color: c-gray
+            margin-bottom: sz-6x
+            padding: sz-1x sz-1x 9px 1px
+            display: flex
+            align-items: center
+            justify-content: center
+
+            .articleText {
+                font-size: sz-2x
+                font-weight: 800
+                line-height: normal
+                color: c-black
+                text-align: center
+            }
+        }
+
+        .image {
+            width: 250px
+            height: 200px
+            margin-left: 12px
+            backdrop-filter: blur(4px)
+        }
+    }
+
+    .title {
+        font-size: sz-3x
+        font-weight: 800
+        line-height: normal
+        color: c-black
+        text-align: center
+        margin-bottom: 3px
+    }
+
+    .priceContainer {
+        margin-bottom: 3px
+        display: flex
+        align-items: flex-start
+
+        .price {
+            font-size: sz-5x
+            font-weight: 800
+            line-height: normal
+            color: c-black
+            display: flex
+            align-items: center
+            text-align: center
+            margin-right: 10px
+        }
+
+        .currency {
+            font-size: sz-4x
+            font-weight: 400
+            line-height: normal
+            color: c-black
+            display: flex
+            align-self: flex-end
+        }
+    }
+}
