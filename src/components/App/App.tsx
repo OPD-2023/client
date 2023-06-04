@@ -5,7 +5,6 @@ import {observer} from "mobx-react"
 import ProductsSearch from "@components/ProductsSearch/ProductsSearch"
 import Container from "@components/Container/Container"
 import GroupsCatalog from "@components/GroupsCatalog/GroupsCatalog"
-import ProductCard from "@components/ProductCard/ProductCard"
 import FeedbackForm from "@components/FeedbackForm/FeedbackForm"
 import Product from "@models/Product"
 import Footer from "@components/Footer/Footer"
@@ -14,14 +13,23 @@ import NotificationsStore from "@business-logic/NotificationsStore"
 import NotificationType from "@models/NotificationType"
 
 import classes from "./App.module.styl"
+import ProductCard from "@components/ProductCard/ProductCard";
 
 const product: Product = {
-    article: "Артикул: 302-4SS",
-    title: "ЦЕНТРАТОР НАРУЖНЫЙ С ГИДРОДОМКРАТОМ",
+    article: 123123,
+    title: "Центратор наружный с гидродомкратом",
     price: 182300,
     currency: "руб",
-    imageURL: "https://static.overlay-tech.com/assets/7016dd7e-66d0-43a1-9870-b95fec2e2d24.png",
-    rating: 4
+    imagesUrls: [
+        "https://media.istockphoto.com/id/1093110112/photo/picturesque-morning-in-plitvice-national-park-colorful-spring-scene-of-green-forest-with-pure.jpg?s=612x612&w=0&k=20&c=lpQ1sQI49bYbTp9WQ_EfVltAqSP1DXg0Ia7APTjjxz4=",
+        "https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=",
+        "https://images.freeimages.com/images/previews/ac9/railway-hdr-1361893.jpg",
+        "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+        "https://www.befunky.com/images/prismic/1f427434-7ca0-46b2-b5d1-7d31843859b6_funky-focus-red-flower-field-after.jpeg?auto=avif,webp&format=jpg&width=863"
+    ],
+    rating: 4,
+    characteristics: {},
+    descriptionParagraphs: []
 };
 
 const App: FC = observer(() => {
@@ -49,10 +57,7 @@ const App: FC = observer(() => {
             }
         ]
         notificationsStore.append(
-            ...notifications.map(notification => ({...notification, id: _.uniqueId()})),
-            ...notifications.map(notification => ({...notification, id: _.uniqueId()})),
-            ...notifications.map(notification => ({...notification, id: _.uniqueId()})),
-            ...notifications.map(notification => ({...notification, id: _.uniqueId()}))
+            ...notifications
         )
     }, [])
 

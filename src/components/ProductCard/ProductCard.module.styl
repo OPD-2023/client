@@ -1,79 +1,115 @@
-@import "variables.styl" 
+@import "variables.styl"
 
-.productCard {
-    background-color: c-white
-    padding: 21px 19px
+dotSize = 7px
+imageSize = 230px
+
+.card {
+  display: flex
+  flex-direction: column
+  width: fit-content
+  padding: sz-2x
+  margin: sz-1x
+  border-radius: sz-2x
+  transition: time-1x transform,
+              time-1x box-shadow ease-out
+
+  .imagesContainer {
+    position: relative
     display: flex
-    flex-direction: column
-    align-items: flex-start
-    box-shadow: 0px 4px 4px c-gray
+    align-items: center
+    justify-content: center
+    width: imageSize
+    height: imageSize
+    border-radius: sz-3x
+    overflow: hidden
 
-    .imageContainer {
-        background-color: c-white
-        margin-bottom: 3px
-        padding: 0 12px 57px 0
-        display: flex
-        flex-direction: column
-        align-items: flex-start
-        border: 4px solid c-gray
-
-        .article {
-            background-color: c-gray
-            margin-bottom: sz-6x
-            padding: sz-1x sz-1x 9px 1px
-            display: flex
-            align-items: center
-            justify-content: center
-
-            .articleText {
-                font-size: sz-2x
-                font-weight: 800
-                line-height: normal
-                color: c-black
-                text-align: center
-            }
-        }
-
-        .image {
-            width: 250px
-            height: 200px
-            margin-left: 12px
-            backdrop-filter: blur(4px)
-        }
+    .currentImage {
+      min-width: 100%
+      min-height: 100%
     }
 
-    .title {
-        font-size: sz-3x
-        font-weight: 800
-        line-height: normal
-        color: c-black
-        text-align: center
-        margin-bottom: 3px
+  }
+
+  .article {
+    opacity: .6
+    padding: sz-1x
+    margin: sz-2x
+    border-radius: sz-1x
+    background-color: c-main
+    color: c-white
+    position: absolute
+    bottom: 0
+    right: 0
+    transition: time-2x opacity
+  }
+
+  .gallery {
+    align-self: center
+    margin: sz-1x
+    line-height: 0
+
+    .dot {
+      display: inline-block
+      width: dotSize
+      height: dotSize
+      margin-left: sz-1x
+      background-color: c-gray
+      border-radius: 50%
+
+      &:first-child {
+        margin-left: 0
+      }
+
+      &.__active {
+        background-color: c-dark-gray
+      }
     }
+  }
 
-    .priceContainer {
-        margin-bottom: 3px
-        display: flex
-        align-items: flex-start
+  .title {
+    margin-top: sz-1x
+    word-break: break-word
+    font-weight: 400
+    font-size: 16px
+    max-width: imageSize
+  }
 
-        .price {
-            font-size: sz-5x
-            font-weight: 800
-            line-height: normal
-            color: c-black
-            display: flex
-            align-items: center
-            text-align: center
-            margin-right: 10px
-        }
+  .price {
+    margin-top: sz-2x
+    font-size: sz-4x
+    font-weight: 700
+  }
 
-        .currency {
-            font-size: sz-4x
-            font-weight: 400
-            line-height: normal
-            color: c-black
-            display: flex
-            align-self: flex-end
-        }
+  .star {
+    fill: c-main
+  }
+
+  .rating {
+    display: flex
+    align-items: center
+    line-height: 0
+    margin-top: sz-1x
+
+    .measure {
+      font-weight: 400
+      font-size: 16px
+      margin: sz-1x
+      display: inline-block
     }
+  }
+
+  .addButton {
+    display: inline-block
+    font-size: 16px
+    margin-top: sz-2x
+  }
+
+  &:hover {
+    transform: scale(1.025)
+    box-shadow: 0 0 10px c-gray
+
+    .article {
+      opacity: .8
+    }
+  }
 }

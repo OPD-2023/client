@@ -9,11 +9,24 @@ export const enum ButtonType {
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
     subType?: ButtonType;
+    rounded?: boolean;
     disabled?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({subType = ButtonType.PRIMARY, className, ...props}) => {
-    const buttonClass: string = classNames(className, classes.button, classes[subType])
+const Button: FC<ButtonProps> = ({
+    subType = ButtonType.PRIMARY,
+    rounded = false,
+    className,
+    ...props
+}) => {
+    const buttonClass: string = classNames(
+        className,
+        classes.button,
+        classes[subType],
+        {
+            [classes.__rounded]: rounded
+        }
+    )
 
     return <button {...props} className={ buttonClass } />
 }
