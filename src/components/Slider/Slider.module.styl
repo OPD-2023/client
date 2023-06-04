@@ -1,0 +1,46 @@
+@import "variables.styl"
+
+arrowSize = 40px
+
+.slider {
+  position: relative
+  overflow: hidden
+
+  .arrow {
+    position: absolute
+    display: flex
+    align-items: center
+    justify-content: center
+    border: 2px solid c-main
+    border-radius: 50%
+    margin: sz-2x
+    z-index: 1
+    top: 50%
+    width: arrowSize
+    height: arrowSize
+    background-color: c-white
+    fill: #FF5605
+    transition: time-1x opacity, time-1x transform
+
+    &.__left {
+      left: 0
+      transform: translateY(-50%)
+    }
+
+    &.__right {
+      right: 0
+      transform: translateY(-50%) rotate(0.5turn)
+    }
+  }
+
+  .wrapper {
+    display: flex
+    transition: time-2x transform
+  }
+
+  &:not(:hover) {
+    .arrow {
+      opacity: 0
+    }
+  }
+}

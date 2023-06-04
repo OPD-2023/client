@@ -11,9 +11,10 @@ import Footer from "@components/Footer/Footer"
 import Notification from "@models/Notification"
 import NotificationsStore from "@business-logic/NotificationsStore"
 import NotificationType from "@models/NotificationType"
+import ProductCard from "@components/ProductCard/ProductCard";
+import Slider from "@components/Slider/Slider";
 
 import classes from "./App.module.styl"
-import ProductCard from "@components/ProductCard/ProductCard";
 
 const product: Product = {
     article: 123123,
@@ -66,7 +67,21 @@ const App: FC = observer(() => {
             <GroupsCatalog />
             <ProductsSearch />
         </Container>
-        <ProductCard product={ product } />
+        <Container>
+            <Slider>
+                <ProductCard product={ product } />
+                <ProductCard product={ product } />
+                <ProductCard product={ product } />
+                <ProductCard product={ product } />
+                <ProductCard product={ product } />
+                <ProductCard product={ {...product, imagesUrls: product.imagesUrls.slice(0, 3) } } />
+                <ProductCard product={ product } />
+                <ProductCard product={ product } />
+                <ProductCard product={ product } />
+                <ProductCard product={ product } />
+                <ProductCard product={ product } />
+            </Slider>
+        </Container>
         <FeedbackForm />
         <Footer />
     </main>
