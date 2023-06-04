@@ -30,7 +30,7 @@ const styleRule = (test, useCallback) => {
             loader: "css-loader",
             options: {
                 modules: {
-                    localIdentName: "[folder]__[local]--[hash:base64:8]"
+                    localIdentName: "[local]--[hash:base64:8]"
                 }
             }
         }

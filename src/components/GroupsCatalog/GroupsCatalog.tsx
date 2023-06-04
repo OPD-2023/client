@@ -12,7 +12,7 @@ const GroupsCatalog: FC = observer(() => {
     const groupsCatalogStore = useInjection<GroupsCatalogStore>(GroupsCatalogStore)
 
     useEffect(() => {
-        groupsCatalogStore.fetchMainGroups()
+        groupsCatalogStore.loadMainGroups()
     }, [])
 
     const areGroupsShown: boolean = !!groupsCatalogStore.groups?.length && groupsCatalogStore.isVisible

@@ -6,6 +6,15 @@
     font-family: "Open Sans", Arial, sans-serif;
 }
 
+button {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+button[disabled] {
+    cursor: default;
+}
+
 header, nav {
     display: block;
 }
