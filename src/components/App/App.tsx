@@ -16,9 +16,8 @@ import classes from "./App.module.styl"
 import ProductCard from "@components/ProductCard/ProductCard";
 
 const product: Product = {
-    article: "302-4SS",
+    article: 123123,
     title: "Центратор наружный с гидродомкратом",
-    // title: "ЦЕНТРАТОР НАРУЖНЫЙ С ГИДРОДОМКРАТОМ",
     price: 182300,
     currency: "руб",
     imagesUrls: [
@@ -28,7 +27,9 @@ const product: Product = {
         "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D&w=1000&q=80",
         "https://www.befunky.com/images/prismic/1f427434-7ca0-46b2-b5d1-7d31843859b6_funky-focus-red-flower-field-after.jpeg?auto=avif,webp&format=jpg&width=863"
     ],
-    rating: 4
+    rating: 4,
+    characteristics: {},
+    descriptionParagraphs: []
 };
 
 const App: FC = observer(() => {

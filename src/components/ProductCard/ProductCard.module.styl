@@ -1,15 +1,20 @@
 @import "variables.styl"
 
 dotSize = 7px
-imageSize = 200px
+imageSize = 230px
 
 .card {
   display: flex
   flex-direction: column
-  max-width: imageSize
-  margin: sz-2x
+  width: fit-content
+  padding: sz-2x
+  margin: sz-1x
+  border-radius: sz-2x
+  transition: time-1x transform,
+              time-1x box-shadow ease-out
 
   .imagesContainer {
+    position: relative
     display: flex
     align-items: center
     justify-content: center
@@ -19,14 +24,23 @@ imageSize = 200px
     overflow: hidden
 
     .currentImage {
-
+      min-width: 100%
+      min-height: 100%
     }
 
-    .article {
-      position: absolute
-      top: 0
-      left: 0
-    }
+  }
+
+  .article {
+    opacity: .6
+    padding: sz-1x
+    margin: sz-2x
+    border-radius: sz-1x
+    background-color: c-main
+    color: c-white
+    position: absolute
+    bottom: 0
+    right: 0
+    transition: time-2x opacity
   }
 
   .gallery {
@@ -53,9 +67,11 @@ imageSize = 200px
   }
 
   .title {
+    margin-top: sz-1x
     word-break: break-word
     font-weight: 400
     font-size: 16px
+    max-width: imageSize
   }
 
   .price {
@@ -82,4 +98,18 @@ imageSize = 200px
     }
   }
 
+  .addButton {
+    display: inline-block
+    font-size: 16px
+    margin-top: sz-2x
+  }
+
+  &:hover {
+    transform: scale(1.025)
+    box-shadow: 0 0 10px c-gray
+
+    .article {
+      opacity: .8
+    }
+  }
 }

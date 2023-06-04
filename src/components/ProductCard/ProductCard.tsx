@@ -3,6 +3,7 @@ import classNames from "classnames"
 
 import Product from "@models/Product"
 import Star24 from "@components/Star24"
+import Button from "@components/Button/Button"
 
 import classes from "./ProductCard.module.styl"
 
@@ -76,6 +77,9 @@ const ProductCard: FC<ProductCardProps> = ({product}) => {
         <div className={ classes.price }>
             { product.price } { product.currency }
         </div>
+        <Button className={ classes.addButton } rounded>
+            Добавить
+        </Button>
     </div>
 }
 
