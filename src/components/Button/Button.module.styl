@@ -1,0 +1,20 @@
+@import "variables.styl"
+
+.button {
+  display: flex
+  align-items: center
+  justify-content: center
+
+  font-weight: 600
+
+  transition: time-2x opacity
+
+  &[disabled] {
+    opacity: 0.7
+  }
+
+  &.__primary {
+    background-color: c-main
+    color: c-white
+  }
+}

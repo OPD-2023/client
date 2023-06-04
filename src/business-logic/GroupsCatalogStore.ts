@@ -19,8 +19,14 @@ export default class GroupsCatalogStore {
         makeObservable(this)
     }
 
-    fetchMainGroups = async () => {
-        this.groups = await this.api.get<Group[]>("groups/main")
+    loadMainGroups = async () => {
+        // this.groups = await this.api.get<Group[]>("groups/main")
+        this.groups = [
+            { id: 1, title: "Бредик" },
+            { id: 2, title: "Чтоооо" },
+            { id: 3, title: "Рандом" },
+            { id: 4, title: "Бредятина" },
+        ]
     }
 
     scheduleVisibilityChange(isVisible: boolean): void {

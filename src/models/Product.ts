@@ -1,3 +1,5 @@
+import Record from "@models/Record"
+
 export default interface Product {
     /**
      *
@@ -6,7 +8,9 @@ export default interface Product {
     readonly imagesUrls: string[];
     readonly title: string;
     readonly price: number;
-    readonly article: string;
+    readonly article: number;
+    readonly characteristics: Record;
+    readonly descriptionParagraphs: string[];
     readonly currency: "руб" | "евро" | "доллар";
     readonly rating: number;
 }

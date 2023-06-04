@@ -1,0 +1,174 @@
+@import "variables.styl"
+
+.header {
+  margin: sz-2x
+}
+
+.info {
+  display: flex
+}
+
+arrowCoefficient = 1.05
+
+.arrow {
+  display: flex
+  justify-content: center
+  align-items: center
+
+  margin: sz-1x 0
+  padding: sz-1x
+  border-radius: sz-1x
+
+  box-shadow: 0 0 sz-2x #0000001A
+
+  fill: c-main
+
+  transition: time-2x transform, time-2x opacity
+
+  &[disabled] {
+    opacity: 0.5
+    cursor: default
+  }
+
+  &.__rotated {
+    transform: rotate(0.5turn)
+  }
+
+  &:not([disabled]) {
+    &.__rotated:hover {
+      transform: rotate(0.5turn) scale(arrowCoefficient)
+    }
+
+    &:hover {
+      transform: scale(arrowCoefficient)
+    }
+  }
+}
+
+.imageControls {
+  display: flex
+}
+
+.imageSlider {
+  margin: sz-2x
+  display: flex
+  flex-direction: column
+}
+
+.imagesWrapper {
+  overflow: hidden
+  max-height: 350px
+}
+
+.imagesContainer {
+  transition: time-2x transform
+}
+
+.imageDivider {
+  padding: sz-1x
+}
+
+primaryImageWrapperSize = 500px
+secondaryImageWrapperSize = 70px
+
+.imageWrapper {
+  display: flex
+  justify-content: center
+  align-items: center
+
+  background-color: c-light-gray
+
+  border: 2px solid c-gray
+  border-radius: sz-1x
+  overflow: hidden
+
+  &.__primary {
+    width: primaryImageWrapperSize
+    height: primaryImageWrapperSize
+  }
+
+  &.__secondary {
+    cursor: pointer
+
+    width: secondaryImageWrapperSize
+    height: secondaryImageWrapperSize
+  }
+
+  &.__selected {
+    border: 2px solid c-main
+  }
+}
+
+.image {
+  vertical-align: top
+  width: 100%
+}
+
+.characteristics {
+  flex-grow: 1
+  margin: sz-3x
+}
+
+.characteristicsHeader {
+  color: c-main
+}
+
+.characteristic {
+  display: flex
+  justify-content: space-between
+  padding: sz-1x
+  margin: sz-1x
+  border-bottom: 2px dashed c-main
+}
+
+.characteristicDescription {
+  font-weight: 600
+}
+
+.priceBanner {
+  padding: sz-3x
+  border-radius: sz-1x
+  box-shadow: 0 0 sz-2x #0000001A
+  flex-grow: 1
+  align-self: flex-start
+}
+
+.price {
+  margin: sz-3x 0
+
+  font-size: sz-f-medium
+  font-weight: 600
+}
+
+.counter {
+  display: flex
+  align-items: center
+  margin-bottom: sz-3x
+}
+
+.count {
+  margin: 0 sz-2x
+  font-weight: 600
+}
+
+.smallButton {
+  border-radius: sz-3x
+  font-size: sz-f-medium
+  width: 40px
+  height: 40px
+}
+
+.addButton {
+  border-radius: sz-1x
+  width: 100%
+  font-size: sz-f-medium
+  padding: 20px 0
+}
+
+.descriptionHeader {
+  margin: sz-1x
+}
+
+.descriptionParagraph {
+  margin: sz-4x 0
+}
