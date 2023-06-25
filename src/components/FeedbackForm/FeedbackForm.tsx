@@ -4,6 +4,7 @@ import {useInjection} from "inversify-react"
 
 import ErrorsList from "@components/ErrorsList/ErrorsList"
 import FeedbackStore from "@business-logic/FeedbackStore"
+import L10n from "@services/l10n"
 
 import classes from "./FeedbackForm.module.styl"
 
@@ -13,11 +14,12 @@ interface FeedbackFormProps {
 
 const FeedbackForm: FC<FeedbackFormProps> = observer(({messageBlockRef}) => {
     const feedbackStore = useInjection<FeedbackStore>(FeedbackStore)
+    const l10n = useInjection<L10n>(L10n)
 
     // TODO: Добавить в плейсхолдеры фейковые данные
     return <form className={classes.form}>
         <label className={classes.label}>
-            Имя:
+            {l10n.currentPackage.name}:
             <input type="text"
                    value={feedbackStore.name}
                    onChange={evt => feedbackStore.name = evt.target.value}
@@ -28,7 +30,7 @@ const FeedbackForm: FC<FeedbackFormProps> = observer(({messageBlockRef}) => {
             }
         </label>
         <label className={classes.label}>
-            Email:
+            {l10n.currentPackage.email}:
             <input type="text"
                    value={feedbackStore.email}
                    onChange={evt => feedbackStore.email = evt.target.value}
@@ -39,7 +41,7 @@ const FeedbackForm: FC<FeedbackFormProps> = observer(({messageBlockRef}) => {
             }
         </label>
         <label className={classes.label} ref={ messageBlockRef }>
-            Сообщение:
+            {l10n.currentPackage.message}:
             <textarea className={classes.field}
                       placeholder="Сообщение"
                       onChange={evt => feedbackStore.message = evt.target.value}

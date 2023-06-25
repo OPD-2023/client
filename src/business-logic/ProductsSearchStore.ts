@@ -2,7 +2,7 @@ import "reflect-metadata"
 import {makeObservable, observable, runInAction, reaction} from "mobx"
 import {inject, injectable} from "inversify"
 
-import ApiClient from "@api/client"
+import ApiClient from "../services/api.client"
 import Product from "@models/Product"
 import DIContainerToken from "@models/DIContainerToken"
 

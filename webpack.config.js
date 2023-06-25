@@ -62,8 +62,10 @@ module.exports = {
             "@business-logic": path.resolve(__dirname, "src", "business-logic"),
             "@api": path.resolve(__dirname, "src", "api"),
             "@utils": path.resolve(__dirname, "src", "utils"),
+            "@services": path.resolve(__dirname, "src", "services"),
             "@inversify-config": path.resolve(__dirname, "inversify.config.ts"),
-            "@app-config": path.resolve(__dirname, "app.config.json")
+            "@app-config": path.resolve(__dirname, "app.config.json"),
+            "@l10n-packages": path.resolve(__dirname, "l10n.packages.json")
         }
     },
     entry: {

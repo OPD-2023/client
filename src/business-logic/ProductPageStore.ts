@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify"
 import { makeObservable, observable, action, runInAction } from "mobx"
 
-import ApiClient from "@api/client"
+import ApiClient from "../services/api.client"
 import type Product from "@models/Product"
 
 @injectable()

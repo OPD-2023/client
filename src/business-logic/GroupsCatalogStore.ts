@@ -1,7 +1,7 @@
 import {makeObservable, observable} from "mobx"
 import {inject, injectable} from "inversify"
 
-import ApiClient from "@api/client"
+import ApiClient from "../services/api.client"
 import Group from "@models/Group"
 
 @injectable()

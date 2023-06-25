@@ -1,0 +1,12 @@
+{
+  "ru": {
+    "name": "Имя",
+    "email": "Email",
+    "message": "Сообщение"
+  },
+  "en": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message"
+  }
+}
